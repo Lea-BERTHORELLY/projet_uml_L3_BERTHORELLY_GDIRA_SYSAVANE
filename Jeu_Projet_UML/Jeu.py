@@ -35,7 +35,7 @@ taille_écran = (hauteur*50, largeur*50)
 fenetre = pygame.display.set_mode(taille_écran)
 ################################################################################
 
-########## création des images du jeu ##########################################
+########## création des imagesProjet du jeu ##########################################
 fondMenu = pygame.image.load("imagesProjet/menu.jpg").convert()
 fond = pygame.image.load("imagesProjet/fond.jpg").convert()
 maison = pygame.image.load("imagesProjet/maison.png").convert_alpha()
@@ -236,7 +236,7 @@ def gagnerSatiete(personnage):
         elif ((Perso.maxSatiete)-(Perso.satiete)<10):
             Perso.satiete +=(Perso.maxSatiete-Perso.satiete)
         elif((Perso.satiete)-(Perso.maxSatiete)==0):
-            print("La satiété est au maximum")  
+            print("La satiété est au maximum")
     elif map[ligne][colonne]==3: ##fastfood
         if ((Perso.maxSatiete)-(Perso.satiete)>=25):
             Perso.satiete +=25
@@ -255,14 +255,14 @@ def perdreVie(personnage):
         Perso.vie-=5
     elif(map[ligne][colonne]==4): ## si le personnage va au bar il perd 3 pts de vie
         Perso.vie-=3
-    
+
 def tomberMalade(personnage):
     n=randint(0,100) ## on génère un nombre au hasard
     if map[ligne][colonne]==7: ##Si le personnage est en forêt
-        if n==10: ## et si la valeur est de 10 (donc 10 %), le personnage tombe malade
+        if n<=10: ## et si la valeur est entre 0 et 10 (donc 10 %), le personnage tombe malade
             Perso.vie-=10 ## et donc il perd 10 pv
     else:
-        if n==5: ## si la valeur est de 5 (donc 5 %), le personnage tombe malade
+        if n<=5: ## si la valeur est entre 0 et 5 (donc 5 %), le personnage tombe malade
             Perso.vie-=10 ## et donc il perd 10 pv
 
 def deplacementPied(personnage):
@@ -299,20 +299,20 @@ def obtenirDiplome(personnage):
     obtention = randint(0,100)
     if (map[ligne][colonne]==2):## si le personnage va à la bibliothèque
         trouverLivreGL = randint(0,100)
-        if (trouverLivreGL==5 and obtention==10): ## si le livre sur le génie log est trouvé et qu'on a une chance d'obtention à 10%
+        if (trouverLivreGL<=5 and obtention<=10): ## si le livre sur le génie log est trouvé et qu'on a une chance d'obtention à 10%
             Perso.nbDiplome+=1
     elif (map[ligne][colonne]==4): ## si le personnage va au bar
         trouverSujet=randint(0,100)
-        if (trouverSujet==5 and obtention ==5): ## si le sujet est trouvé et qu'on a une chance d'obtention à 5%
+        if (trouverSujet<=5 and obtention <=5): ## si le sujet est trouvé et qu'on a une chance d'obtention à 5%
             Perso.nbDiplome+=1
-    elif (map[ligne][colonne]==5): ## si le personnage va à l'université 
-        if obtention ==30:
+    elif (map[ligne][colonne]==5): ## si le personnage va à l'université
+        if obtention <=30:
             Perso.nbDiplome+=1
 
 def pieges(personnage):
     rencontrerPiege=randint(0,100)
     piege = randint(1,3)
-    if rencontrerPiege ==5:
+    if rencontrerPiege <=5:
         if (map[ligne][colonne]==6): ## si on est sur un trottoir
             if piege==1: ## 1= peau de banane
                 Perso.vie-=3
@@ -325,8 +325,8 @@ def pieges(personnage):
                 Perso.vie-=1
             elif piege==2 and Perso.type!=2:  ## si police + personnage non hippie
                 Perso.moral-=1
-                police+=1
-                if police==3: ## si on rencontre 3 fois la police on arrete la simulation
+                Perso.police+=1
+                if Perso.police==3: ## si on rencontre 3 fois la police on arrete la simulation
                     simulation=0
                     end=1
             elif piege==3: ## 3= nid de poule
@@ -345,7 +345,6 @@ for colonne in range(largeur):
             posPerso.center=x,y
 
 initBats()
-police=0
 ligne=colonne=0
 menu=1
 simulation=0

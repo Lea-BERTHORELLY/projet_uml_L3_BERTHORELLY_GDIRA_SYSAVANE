@@ -19,8 +19,9 @@ class personnage(object):
         self.nbDiplome = 0
         self.deplacement = 1 ##1 = à pied
         self.type = Type
+        self.police=0
 
-    
+
 
     def perdrePoints(self,Moral,Vie,Hydratation,Satiete):
         self.moral-=Moral
@@ -35,4 +36,4 @@ class personnage(object):
         self.satiete-=Satiete
 
 
-            
+
