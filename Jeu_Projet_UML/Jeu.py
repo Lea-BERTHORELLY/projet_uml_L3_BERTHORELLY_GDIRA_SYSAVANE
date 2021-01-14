@@ -198,7 +198,7 @@ def initGraphics():
 
 ###################### fonctions pour le personnage #############################
 def gagnerMoral(personnage):
-    if Perso.type!=2:
+    if Perso.type!=2: ## pas un hippie
         if map[ligne][colonne]==1: ##maison
             if ((Perso.maxMoral)-(Perso.moral)>=10):
                 Perso.moral +=10
@@ -266,7 +266,7 @@ def tomberMalade(personnage):
             Perso.vie-=10 ## et donc il perd 10 pv
 
 def deplacementPied(personnage):
-    if map[ligne][colonne]==6:
+    if map[ligne][colonne]==6: ## 6=trottoir
         Perso.deplacement=1
 
 def deplacementVelo(personnage):
@@ -289,10 +289,10 @@ def risquerMort(personnage):
     mort=randint(0,100)
     mort2=randint(0,1000)
     if Perso.deplacement==3:
-        if mort ==2:
+        if mort <=2:
             Perso.vie=0
     elif Perso.deplacement==2:
-        if mort2 ==5:
+        if mort2 <=5:
             Perso.vie=0
 
 def obtenirDiplome(personnage):
